@@ -1,0 +1,79 @@
+<div class="main">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <h1 class="title">Cuckoo Hashing</h1>
+    </div>
+    <div class="row">
+      <label>
+        Welcome to Cuckoo Hashing!
+      </label>
+      <label>
+        Cuckoo hashing is an elegant method for resolving collisions in hash tables. It was invented in 2001 by Rasmus
+        Pagh and Flemming Friche Rodler. It has the rare distinction of being easy to implement and efficient both in
+        theory and practice.
+      </label>
+    </div>
+    <div class="row">
+      Please enter number of tables and number of rows of each table.
+    </div>
+    <div class="row t-input">
+      <div class="col my-auto">
+        <label class="t-label">
+          Number of Tables
+          <input type="number" [(ngModel)]="nTables" (ngModelChange)="checkInputs()">
+        </label>
+      </div>
+      <div class="col my-auto">
+        <label class="t-label">
+          Number of Cells
+          <input type="number" [(ngModel)]="nRows" (ngModelChange)="checkInputs()">
+        </label>
+      </div>
+      <div class="col my-auto">
+        <button class="btn btn-danger t-btn" (click)="reload()" [disabled]=!buttonValid>Reload</button>
+        <!--        <button class="btn btn-outline-danger" (click)="open(mymodal)">Open My Modal</button>-->
+      </div>
+    </div>
+    <div class="row">
+      Please enter a value and select an operation.
+    </div>
+    <div class="row t-input">
+      <div class="col-4 my-auto">
+        <label class="t-label">
+          Value
+          <input type="text" [(ngModel)]="currentValue" (keyup)="fitValue()">
+        </label>
+      </div>
+      <div class="col my-auto">
+        <button class="btn btn-primary t-btn" (click)="searchValue(currentValue)">Search</button>
+        <button class="btn btn-success t-btn" (click)="insertValue(currentValue, 0, 0)">Insert</button>
+        <button class="btn btn-danger t-btn" (click)="deleteValue(currentValue)">Delete</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" *ngFor="let table of tables">
+        <table class="table table-bordered t-borderless">
+          <tbody>
+          <tr *ngFor="let cell of table.rows">
+            <td [style.border]="cell.css">{{cell.value}}</td>
+          </tr>
+          <tr>
+            <td class="t-borderless">
+              <b>Load Factor: </b>{{table.loadFactor}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <b>Current Collision:</b> {{currentCollisionCount}}
+      </div>
+    </div>
+    <div class="designed-by">
+      Developed by @tolunaykatirci
+    </div>
+  </div>
+</div>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

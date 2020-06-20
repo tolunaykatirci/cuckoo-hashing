@@ -1,0 +1,41 @@
+
+td {
+  padding: 0.5rem;
+}
+.main {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.container {
+  position: relative;
+  background-color: white;
+  min-height: 100vh;
+  padding: 35px;
+}
+
+.t-input {
+  padding: 15px;
+}
+
+.t-btn {
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 100px;
+}
+
+.t-label {
+  margin-bottom: 0px;
+}
+
+.t-borderless {
+  border: none !important;
+}
+
+.designed-by{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-style: italic;
+}
