@@ -25,7 +25,7 @@
       </div>
       <div class="col my-auto">
         <label class="t-label">
-          Number of Cells
+          Number of Rows
           <input type="number" [(ngModel)]="nRows" (ngModelChange)="checkInputs()">
         </label>
       </div>
@@ -54,8 +54,8 @@
       <div class="col" *ngFor="let table of tables">
         <table class="table table-bordered t-borderless">
           <tbody>
-          <tr *ngFor="let cell of table.rows">
-            <td [style.border]="cell.css">{{cell.value}}</td>
+          <tr *ngFor="let row of table.rows">
+            <td [style.border]="row.css">{{row.value}}</td>
           </tr>
           <tr>
             <td class="t-borderless">

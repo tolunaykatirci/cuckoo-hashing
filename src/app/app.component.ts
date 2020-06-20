@@ -223,12 +223,12 @@ export class AppComponent implements OnInit {
     this.updateLoadFactor();
   }
 
-  // shows a success toast left upper of screen
+  // shows a success toast right upper of the page
   showSuccess(text) {
     this.toastService.show(text, {classname: 'bg-success text-light', delay: 10000});
   }
 
-  // shows a danger toast left upper of screen
+  // shows a danger toast right upper of the page
   showDanger(text) {
     this.toastService.show(text, {classname: 'bg-danger text-light', delay: 10000});
   }
