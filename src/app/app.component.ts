@@ -9,14 +9,6 @@ import {ToastService} from './toast-service';
 })
 export class AppComponent implements OnInit {
 
-  /*  Yapilacaklar
-   - collision eklenecek
-   - cycle bulunacak
-   - insert toast eklenecek
-   - min-max ayarlanacak      +++
-   - test
-   - rapor
-   */
   title = 'cuckoo-hashing';
   nTables = 3;
   nRows = 10;
@@ -34,7 +26,7 @@ export class AppComponent implements OnInit {
   borderGreen = '2px solid #28a745';
   borderInfo = '2px solid #17a2b8';
 
-  constructor(private modalService: NgbModal, public toastService: ToastService) {
+  constructor(public toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -45,6 +37,7 @@ export class AppComponent implements OnInit {
   // recreates tables empty
   reload() {
     console.log('Tables refreshed ' + this.nTables + ', ' + this.nRows);
+    this.currentCollisionCount = 0;
 
     this.tables = [];
     for (let i = 0; i < this.nTables; i++) {
@@ -81,7 +74,7 @@ export class AppComponent implements OnInit {
   // Cuckoo Hashing Functions
   // ((indexTable + 1)^2 + valueScore) % nRows
   cuckooHash(value, indexTable) {
-    console.log(value, indexTable);
+    // console.log(value, indexTable);
     if (0 <= indexTable && indexTable <= 4) {
       let valueScore = 0;
       for (let i = 0; i < value.length; i++) {
@@ -160,7 +153,7 @@ export class AppComponent implements OnInit {
         return -1;
       }
       if (this.tables[i].rows[indexRow].value === value) {
-        console.log(i, indexRow);
+        // console.log(i, indexRow);
         return i;
       }
     }
@@ -173,6 +166,18 @@ export class AppComponent implements OnInit {
 
     // initial values
     if (collisionCount === 0) {
+
+      // check validity of current value
+      if (value === undefined){
+        this.showDanger('Value cannot be empty!');
+        return;
+      }
+      value = value.trim();
+      if (value === '' || value === '-') {
+        this.showDanger('Value cannot be empty!');
+        return;
+      }
+
       this.currentValue = '';
       this.currentCollisionCount = 0;
       this.currentOperations = [];
@@ -218,34 +223,6 @@ export class AppComponent implements OnInit {
     this.updateLoadFactor();
   }
 
-  // // inserts entered value
-  // insertValue(value, indexTable, isInitial) {
-  //   this.currentValue = '';
-  //   this.refreshStyle();
-  //   console.log(value, indexTable, cycleCount);
-  //   if (cycleCount >= this.maxCycle) {
-  //     this.showDanger('Cycle present! Must rehash!');
-  //     return;
-  //   }
-  //
-  //   const index = this.search(value);
-  //   if (index != -1) {
-  //     console.log('Value has already added');
-  //     this.showDanger('Value has already added!');
-  //   } else {
-  //     const indexRow = this.cuckooHash(value, indexTable);
-  //     const previousValue = this.tables[indexTable].rows[indexRow].value;
-  //     console.log('resres');
-  //     this.tables[indexTable].rows[indexRow].value = value;
-  //     if (previousValue !== '-') {
-  //       setTimeout(() => {
-  //         this.insertValue(previousValue, ((indexTable + 1) % this.nTables), cycleCount + 1);
-  //       }, 50);
-  //     }
-  //   }
-  //   this.updateLoadFactor();
-  // }
-
   // shows a success toast left upper of screen
   showSuccess(text) {
     this.toastService.show(text, {classname: 'bg-success text-light', delay: 10000});
@@ -255,6 +232,5 @@ export class AppComponent implements OnInit {
   showDanger(text) {
     this.toastService.show(text, {classname: 'bg-danger text-light', delay: 10000});
   }
-
 
 }
